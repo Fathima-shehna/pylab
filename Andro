@@ -1,0 +1,50 @@
+
+package com.example.calculator;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText number1, number2;
+    TextView result_text;
+
+    @Override
+    protected void onCreate(Bundle b) {
+        super.onCreate(b);
+        setContentView(R.layout.activity_main);
+
+        number1 = findViewById(R.id.number1);
+        number2 = findViewById(R.id.number2);
+        result_text = findViewById(R.id.result_text);
+
+        findViewById(R.id.add_btn).setOnClickListener(v -> calculate('+'));
+        findViewById(R.id.sub_btn).setOnClickListener(v -> calculate('-'));
+        findViewById(R.id.mul_btn).setOnClickListener(v -> calculate('*'));
+        findViewById(R.id.div_btn).setOnClickListener(v -> calculate('/'));
+
+        findViewById(R.id.clear_btn).setOnClickListener(v -> {
+            number1.setText("");
+            number2.setText("");
+            result_text.setText("");
+        });
+    }
+
+    void calculate(char op) {
+        int a = Integer.parseInt(number1.getText().toString());
+        int b = Integer.parseInt(number2.getText().toString());
+
+        if (op == '+')
+            result_text.setText("Result: " + (a + b));
+        else if (op == '-')
+            result_text.setText("Result: " + (a - b));
+        else if (op == '*')
+            result_text.setText("Result: " + (a * b));
+        else if (b != 0)
+            result_text.setText("Result: " + (a / (double) b));
+        else
+            result_text.setText("Cannot divide by zero");
+    }
+}
